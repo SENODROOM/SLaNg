@@ -28,7 +28,7 @@ function definiteIntegrate(obj, lower, upper, indvar) {
 
     return obj;
 }
-console.log(JSON.stringify(definiteIntegrate(definiteIntegrate(examples[2], 1, -1, 'y'), 0, -1, 'x'), null, 2));
+console.log(JSON.stringify(definiteIntegrate(definiteIntegrate(examples[3][0], 1, -1, 'y'), 0, -1, 'x'), null, 2));
 
 
 // Exercise 15.1 Ques1

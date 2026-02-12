@@ -48,7 +48,37 @@ const examples = [
             }]
         },
         deno: 1
-    }
+    },
+    [
+        {
+            numi: {
+                terms: [{
+                    coeff: 1,
+                    var: {
+                    }
+                }]
+            },
+            deno: 1
+        },
+        {
+            numi: {
+                terms: [
+                    {
+                        coeff: 0.5,
+                        var: {
+                            x: 2,
+                        }
+                    }, {
+                        coeff: 0.5,
+                        var: {
+                            y: 2
+                        }
+                    }
+                ]
+            },
+            deno: 1
+        }
+    ]
 ];
 
 export default examples;
