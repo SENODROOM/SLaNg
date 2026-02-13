@@ -1,4 +1,4 @@
-# createTerm Utility
+# createTerm 
 
 A utility function to create mathematical terms with coefficients and variables.
 

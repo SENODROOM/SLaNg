@@ -1,4 +1,4 @@
-# createFraction Utility
+# createFraction 
 
 A utility function to create mathematical fractions with numerator terms and a denominator.
 
