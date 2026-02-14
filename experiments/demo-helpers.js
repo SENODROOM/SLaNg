@@ -16,9 +16,9 @@ import {
     areaOfRegion,
     verifyIntegration,
     numericalVerification
-} from './slang-helpers.js';
+} from '../slang-helpers.js';
 
-import { createFraction, createTerm } from './slang-math.js';
+import { createFraction, createTerm } from '../slang-math.js';
 
 console.log('╔════════════════════════════════════════════╗');
 console.log('║    SLaNg Helpers Demo                      ║');

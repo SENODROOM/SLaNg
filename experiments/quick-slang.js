@@ -11,7 +11,7 @@ import {
     simplifyFraction,
     evaluateEquation,
     differentiateFraction
-} from './slang-math.js';
+} from '../slang-math.js';
 
 // ============================================================================
 // RECIPE 1: Creating Simple Expressions

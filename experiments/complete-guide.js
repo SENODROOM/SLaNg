@@ -11,14 +11,14 @@ import {
     expandProduct,
     simplifyFraction,
     evaluateEquation
-} from './slang-math.js';
+} from '../slang-math.js';
 
 import {
     polynomial,
     sum,
     integralValue,
     partialDerivative
-} from './slang-helpers.js';
+} from '../slang-helpers.js';
 
 import {
     productRuleDifferentiate,
@@ -33,7 +33,7 @@ import {
     surfaceAreaOfRevolution,
     gradient,
     directionalDerivative
-} from './slang-advanced.js';
+} from '../slang-advanced.js';
 
 console.log('╔═══════════════════════════════════════════════════════════════╗');
 console.log('║                                                               ║');

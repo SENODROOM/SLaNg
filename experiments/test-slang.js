@@ -7,7 +7,7 @@ import {
     expandProduct,
     simplifyFraction,
     equationToString
-} from './slang-math.js';
+} from '../slang-math.js';
 
 // ============================================================================
 // EXAMPLE EQUATIONS
