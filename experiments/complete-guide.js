@@ -52,7 +52,7 @@ console.log('══════════════════════�
 
 console.log('What is SLaNg?');
 console.log('--------------');
-console.log('SLaNg (Symbolic Language) is a JSON-based notation for representing');
+console.log('SLaNg (Saad Language Analytical Numerics and Geometry) is a JSON-based notation for representing');
 console.log('mathematical expressions. It\'s hierarchical:');
 console.log('');
 console.log('  Equation (array)');

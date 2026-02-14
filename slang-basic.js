@@ -1,5 +1,5 @@
 /**
- * SLaNg (Symbolic Language) - Math Library
+ * SLaNg (Saad Language for Analytical Numerics and Geometry) - Math Library
  * For manipulating symbolic mathematical expressions
  */
 
