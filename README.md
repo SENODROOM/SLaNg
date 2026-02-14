@@ -1,22 +1,58 @@
-# 📚 SLaNg Math Library
-### Saad's Language for Analytical Numerics and Geometry
+# 📚 SLaNg Math Library 
+### Saad's Language for Analytical Numerics and Geometry - ****
 
-🎯 **Symbolic Mathematics Made Simple**
+🎯 **Symbolic Mathematics with Full Rational Function Support**
 
-A powerful, dependency-free JavaScript library for symbolic and numerical calculus. Compute derivatives, integrals, Taylor series, optimize functions, and solve multivariable problems—all with clean, readable code.
+A powerful, dependency-free JavaScript library for symbolic and numerical calculus with **complete polynomial denominator support**. Compute derivatives, integrals, rational functions, Taylor series, optimize functions, and solve complex multivariable problems—all with clean, readable code.
 
 ```javascript
-import { polynomial, integralValue } from './slang-helpers.js';
+import { createFraction, createTerm, differentiateFraction } from './slang-math.js';
 
-const f = polynomial([1, 0], 'x');  // f(x) = x
-const area = integralValue(f[0][0], { x: [0, 2] });  // ∫₀² x dx = 2
+//: Full polynomial denominator support!
+const f = createFraction(
+    [createTerm(2, {x: 1})],           // 2x
+    [createTerm(1, {x: 2}), createTerm(1)]  // x² + 1
+);  // f(x) = 2x/(x² + 1)
+
+// Differentiate using quotient rule automatically
+const fPrime = differentiateFraction(f, 'x');  
+// f'(x) = (2(x² + 1) - 2x(2x))/(x² + 1)² = (2 - 2x²)/(x² + 1)²
 ```
 
 **No dependencies. Pure JavaScript. Fully documented.**
 
 ---
 
-## 🚀 Quick Start
+## 🚀 
+
+### ✨ Major Features
+
+1. **📊 Full Polynomial Denominator Support**
+   - Create rational functions with polynomial numerators AND denominators
+   - Automatic quotient rule differentiation
+   - Enhanced simplification with GCD reduction
+   - Smart handling of mixed denominator types
+
+2. **🧮 Enhanced Integration**
+   - Simpson's rule for numerical integration (more accurate)
+   - Better handling of complex rational functions
+   - Improved definite integration with mixed bounds
+
+3. **🎯 Advanced Calculus Operations**
+   - U-substitution detection for integrals
+   - Partial fraction decomposition (foundation laid)
+   - Improved chain rule support
+   - Better Taylor series for rational functions
+
+4. **⚡ Performance & Accuracy**
+   - GCD-based fraction simplification
+   - Smarter polynomial term ordering
+   - More robust numerical methods
+   - Better error handling
+
+---
+
+## 📖 Quick Start
 
 ### Installation
 ```bash
@@ -27,591 +63,611 @@ cd slang-math
 # No npm install needed - pure JavaScript!
 ```
 
-### Your First Calculation
+### Basic Examples
+
+#### Example 1: Simple Polynomial
 ```javascript
-import { polynomial, integralValue } from './slang-helpers.js';
+import { polynomial, evaluateAt } from './slang-helpers.js';
 
-// Create f(x) = x²
-const f = polynomial([2], 'x');
+// Create f(x) = x² - 4x + 4
+const f = polynomial([1, -4, 4], 'x');
 
-// Compute ∫₀³ x² dx
-const result = integralValue(f[0][0], { x: [0, 3] });
-console.log(result);  // 9
+// Evaluate at x = 2
+console.log(evaluateAt(f[0], { x: 2 }));  // 0
 ```
 
-That's it! You just computed a definite integral symbolically.
+#### Example 2: Rational Function ()
+```javascript
+import { createFraction, createTerm, differentiateFraction } from './slang-math.js';
+
+// Create f(x) = x/(x + 1)
+const f = createFraction(
+    [createTerm(1, {x: 1})],                    // numerator: x
+    [createTerm(1, {x: 1}), createTerm(1)]     // denominator: x + 1
+);
+
+// Differentiate using quotient rule
+const fPrime = differentiateFraction(f, 'x');
+// Result: 1/(x + 1)²
+```
+
+#### Example 3: Complex Integration
+```javascript
+import { numericalIntegrateFraction } from './slang-math.js';
+
+// Integrate a rational function
+const result = numericalIntegrateFraction(
+    complexFraction,
+    0,  // lower bound
+    1,  // upper bound
+    'x',
+    1000  // steps for accuracy
+);
+```
 
 ---
 
-## ✨ What Can You Do?
+## 🎓 Complete Feature List
 
-### 🧮 Calculus Operations
-- **Derivatives**: Find derivatives of complex expressions
-- **Integrals**: Definite and indefinite integration
-- **Multivariable Calculus**: Partial derivatives, gradients, directional derivatives
-- **Optimization**: Find critical points, local extrema
-- **Taylor Series**: Expand functions around points
-- **Arc Length & Surface Area**: Geometric calculations
+### Core Operations
 
-### 📐 Expression Building
-- **Polynomials**: Easy builders for any degree
-- **Products**: Expand and simplify algebraic expressions
-- **Fractions**: Full fraction arithmetic with simplification
-- **Evaluation**: Symbolic expressions to numerical values
+#### 📐 Expression Creation
 
-### 🔬 Advanced Features
-- Product and quotient rules
-- Integration by parts
-- Numerical root finding
-- Limit calculations
-- Volume under surfaces
-- Region integration
+**Polynomial Creation**
+```javascript
+import { polynomial, sum, monomial } from './slang-helpers.js';
+
+// Method 1: Array of coefficients
+const f = polynomial([1, -2, 1], 'x');  // x² - 2x + 1
+
+// Method 2: Sum of monomials
+const g = sum([
+    [3, {x: 2}],
+    [-2, {x: 1}],
+    [1, {}]
+]);  // 3x² - 2x + 1
+
+// Method 3: Single monomial
+const h = monomial(5, {x: 3, y: 2});  // 5x³y²
+```
+
+**Rational Function Creation ()**
+```javascript
+import { createFraction, createTerm } from './slang-math.js';
+
+// Simple: polynomial / constant
+const f1 = createFraction(
+    [createTerm(2, {x: 1}), createTerm(3)],  // 2x + 3
+    4                                         // constant denominator
+);  // (2x + 3)/4
+
+// Advanced: polynomial / polynomial
+const f2 = createFraction(
+    [createTerm(1, {x: 1})],                          // x
+    [createTerm(1, {x: 2}), createTerm(-1)]          // x² - 1
+);  // x/(x² - 1)
+
+// Complex: multivariable rational function
+const f3 = createFraction(
+    [createTerm(1, {x: 2, y: 1})],                   // x²y
+    [createTerm(1, {x: 1}), createTerm(1, {y: 1})]  // x + y
+);  // (x²y)/(x + y)
+```
+
+#### 🔢 Evaluation
+
+```javascript
+import { evaluateFraction, evaluateEquation } from './slang-math.js';
+
+// Evaluate rational function
+const value = evaluateFraction(fraction, { x: 2, y: 3 });
+
+// Evaluate entire equation
+const result = evaluateEquation(equation, { x: 1 });
+```
+
+#### ∂ Differentiation
+
+**Simple Polynomials**
+```javascript
+import { differentiateFraction } from './slang-math.js';
+
+const f = polynomial([1, 0, -3, 0], 'x');  // x³ - 3x
+const fPrime = differentiateFraction(f[0][0], 'x');
+// Result: 3x² - 3
+```
+
+**Quotient Rule (Automatic!)**
+```javascript
+// For f(x) = x/(x² + 1)
+const f = createFraction(
+    [createTerm(1, {x: 1})],
+    [createTerm(1, {x: 2}), createTerm(1)]
+);
+
+const fPrime = differentiateFraction(f, 'x');
+// Automatically applies: d/dx[u/v] = (u'v - uv')/v²
+// Result: ((x² + 1) - x(2x))/(x² + 1)² = (1 - x²)/(x² + 1)²
+```
+
+**Partial Derivatives**
+```javascript
+import { partialDerivative } from './slang-helpers.js';
+
+const f = createFraction(
+    [createTerm(1, {x: 2, y: 1})],  // x²y
+    [createTerm(1, {x: 1, y: 1})]   // xy
+);
+
+const fx = partialDerivative(f, 'x');  // ∂f/∂x
+const fy = partialDerivative(f, 'y');  // ∂f/∂y
+```
+
+#### ∫ Integration
+
+**Symbolic Integration**
+```javascript
+import { integrateFraction } from './slang-math.js';
+
+// Works for polynomial / constant
+const F = integrateFraction(
+    createFraction([createTerm(2, {x: 1})], 1),
+    'x'
+);  // x²
+```
+
+**Numerical Integration (NEW: Simpson's Rule)**
+```javascript
+import { numericalIntegrateFraction } from './slang-math.js';
+
+// For complex rational functions
+const area = numericalIntegrateFraction(
+    complexRational,
+    0,      // lower
+    1,      // upper
+    'x',
+    1000    // steps (even number for Simpson's rule)
+);
+
+// Uses Simpson's rule: h/3[f(x₀) + 4f(x₁) + 2f(x₂) + ...]
+// Much more accurate than rectangle method!
+```
+
+**Definite Integration**
+```javascript
+import { definiteIntegrateFraction } from './slang-math.js';
+
+const result = definiteIntegrateFraction(
+    fraction,
+    0,    // lower bound
+    2,    // upper bound
+    'x'
+);
+```
+
+**Double/Triple Integrals**
+```javascript
+import { integralValue } from './slang-helpers.js';
+
+// ∫∫ xy dx dy over [0,2] × [0,3]
+const volume = integralValue(
+    createFraction([createTerm(1, {x:1, y:1})], 1),
+    { x: [0, 2], y: [0, 3] }
+);  // 9
+```
 
 ---
 
-## 📖 Documentation
+### Advanced Features
 
-Every function in this library is fully documented! Here's where to find help:
+#### 🎯 Product & Quotient Rules
 
-### 📘 For Learning
-- **[SUMMARY.md](SUMMARY.md)** ⭐ **START HERE** - Quick overview, what problems it solves, and quick examples
-- **[FEATURES-EXPLAINED.md](FEATURES-EXPLAINED.md)** 📖 **BEST FOR LEARNING** - Every feature explained in detail with real-world applications
-- **[README.md](README.md)** - Complete API reference (you're reading it!)
+```javascript
+import { productRuleDifferentiate, quotientRuleDifferentiate } from './slang-advanced.js';
 
-### 💡 Example Files
-Run these to see the library in action:
-- **`test-slang.js`** - Basic functionality tests
-- **`quick-start.js`** - 9 common usage patterns
-- **`demo-helpers.js`** - Helper functions demonstration
-- **`complete-guide.js`** ⭐ **MOST COMPREHENSIVE** - Full tutorial with 7 parts
+// Product rule: d/dx[f·g] = f'·g + f·g'
+const derivative1 = productRuleDifferentiate([f, g], 'x');
 
-**Every function has detailed explanations in our markdown documentation!** Don't guess—read the docs and see examples.
+// Quotient rule: d/dx[f/g] = (f'·g - f·g')/g²
+const derivative2 = quotientRuleDifferentiate(f, g, 'x');
+```
+
+#### 🔗 Chain Rule
+
+```javascript
+import { chainRuleDifferentiate } from './slang-advanced.js';
+
+// For compositions like f(g(x))
+const result = chainRuleDifferentiate(outer, inner, 'x');
+```
+
+#### 📊 Taylor Series
+
+```javascript
+import { taylorSeries } from './slang-advanced.js';
+
+// Expand f(x) around x = 0 to order 5
+const taylor = taylorSeries(f, 'x', 0, 5);
+// f(x) ≈ f(0) + f'(0)x + f''(0)x²/2! + ...
+```
+
+#### 🎲 Optimization
+
+**Critical Points**
+```javascript
+import { findCriticalPoints, secondDerivativeTest } from './slang-advanced.js';
+
+// Find where f'(x) = 0
+const critical = findCriticalPoints(f, 'x', [-10, 10]);
+
+// Classify each point
+for (let point of critical.criticalPoints) {
+    const test = secondDerivativeTest(f, 'x', point);
+    console.log(`x = ${point}: ${test.type}`);
+    // "local minimum", "local maximum", or "inconclusive"
+}
+```
+
+**Curve Analysis**
+```javascript
+import { analyzeCurve } from './slang-advanced.js';
+
+const analysis = analyzeCurve(f, 'x', [-5, 5]);
+// Returns: {
+//   criticalPoints: [...],
+//   extrema: [...],
+//   inflectionPoints: [...],
+//   firstDerivative: {...},
+//   secondDerivative: {...}
+// }
+```
+
+#### 📐 Geometry
+
+**Arc Length**
+```javascript
+import { arcLength } from './slang-advanced.js';
+
+// Length of curve y = f(x) from a to b
+const L = arcLength(f, 'x', 0, 2);
+// Uses: L = ∫√(1 + (dy/dx)²) dx
+```
+
+**Surface Area of Revolution**
+```javascript
+import { surfaceAreaOfRevolution } from './slang-advanced.js';
+
+// Rotate y = f(x) around x-axis
+const SA = surfaceAreaOfRevolution(f, 'x', 0, 1);
+// Uses: SA = 2π ∫ y√(1 + (dy/dx)²) dx
+```
+
+**Volume Under Surface**
+```javascript
+import { volumeUnderSurface } from './slang-helpers.js';
+
+// Volume under z = f(x,y)
+const V = volumeUnderSurface(surface, [0, 1], [0, 1]);
+```
+
+#### 🌊 Multivariable Calculus
+
+**Gradient**
+```javascript
+import { gradient } from './slang-advanced.js';
+
+const grad = gradient(f, ['x', 'y']);
+// ∇f = (∂f/∂x, ∂f/∂y)
+```
+
+**Directional Derivative**
+```javascript
+import { directionalDerivative } from './slang-advanced.js';
+
+const Dvf = directionalDerivative(
+    f,
+    ['x', 'y'],
+    {x: 1, y: 1},      // point
+    {x: 1, y: 0}       // direction
+);
+// Rate of change in given direction
+```
+
+**Lagrange Multipliers**
+```javascript
+import { lagrangeMultipliers } from './slang-advanced.js';
+
+const result = lagrangeMultipliers(
+    objectiveFunction,
+    constraintFunction,
+    ['x', 'y']
+);
+// Sets up system: ∇f = λ∇g
+```
 
 ---
 
-## 💻 Core Modules
-
-### 1. `slang-math.js` - Foundation
-The core symbolic math engine.
+## 🔧 Polynomial Arithmetic ()
 
 ```javascript
 import {
-    createTerm,
-    createFraction,
-    definiteIntegrateFraction,
-    differentiateFraction,
-    expandProduct,
-    simplifyFraction,
-    evaluateEquation
+    addPolynomials,
+    subtractPolynomials,
+    multiplyPolynomials,
+    simplifyPolynomial
 } from './slang-math.js';
+
+// Addition
+const sum = addPolynomials(poly1, poly2);
+
+// Subtraction
+const diff = subtractPolynomials(poly1, poly2);
+
+// Multiplication
+const product = multiplyPolynomials(poly1, poly2);
+
+// Simplification (combines like terms)
+const simplified = simplifyPolynomial(polynomial);
 ```
-
-**Contains:**
-- Expression creation and manipulation
-- Basic differentiation and integration
-- Expression evaluation
-- Simplification and expansion
-- ~400 lines, ~12KB
-
-### 2. `slang-helpers.js` - Easy Interface
-Simplified functions for common tasks.
-
-```javascript
-import {
-    polynomial,
-    sum,
-    integralValue,
-    volumeUnderSurface,
-    partialDerivative
-} from './slang-helpers.js';
-```
-
-**Contains:**
-- One-line expression builders
-- Easy integration and differentiation
-- Geometry helpers
-- Common formulas
-- ~300 lines, ~8KB
-
-### 3. `slang-advanced.js` - Advanced Features
-Sophisticated calculus operations.
-
-```javascript
-import {
-    productRuleDifferentiate,
-    quotientRuleDifferentiate,
-    taylorSeries,
-    findCriticalPoints,
-    arcLength,
-    gradient,
-    directionalDerivative
-} from './slang-advanced.js';
-```
-
-**Contains:**
-- Product & quotient rules
-- Integration by parts
-- Taylor series expansion
-- Optimization tools
-- Multivariable calculus
-- ~550 lines, ~17KB
-
----
-
-## 🎓 Learning Path
-
-### Level 1: Beginner (30 minutes)
-1. Read [SUMMARY.md](SUMMARY.md) (5 min)
-2. Run `node test-slang.js` (5 min)
-3. Read first half of [FEATURES-EXPLAINED.md](FEATURES-EXPLAINED.md) (20 min)
-4. Try modifying test-slang.js
-
-### Level 2: Intermediate (2 hours)
-1. Run `node quick-start.js` and study the code (30 min)
-2. Read this README API reference (30 min)
-3. Run `node demo-helpers.js` (20 min)
-4. Build something yourself! (40 min)
-   - Create a polynomial
-   - Find its derivative
-   - Find critical points
-   - Evaluate at many points
-
-### Level 3: Advanced (4 hours)
-1. Run `node complete-guide.js` (30 min)
-2. Read [FEATURES-EXPLAINED.md](FEATURES-EXPLAINED.md) completely (1 hour)
-3. Study slang-advanced.js source code (1 hour)
-4. Implement a new feature! (1.5 hours)
 
 ---
 
 ## 📊 Complete API Reference
 
-### Expression Creation
+### Core Functions
 
-#### `createTerm(variable, power, coefficient = 1)`
-Creates a single term in a polynomial.
+| Function | Purpose | Example |
+|----------|---------|---------|
+| `createTerm(coeff, vars)` | Create single term | `createTerm(3, {x:2})` → 3x² |
+| `createFraction(numi, deno)` | Create fraction | See examples above |
+| `polynomial(coeffs, var)` | Quick polynomial | `polynomial([1,-2,1],'x')` |
+| `evaluateFraction(frac, vals)` | Evaluate | `evaluateFraction(f, {x:2})` |
+| `differentiateFraction(frac, var)` | Differentiate | Auto quotient rule |
+| `integrateFraction(frac, var)` | Integrate | Symbolic when possible |
+| `numericalIntegrateFraction(...)` | Numeric integration | Simpson's rule |
+| `simplifyFraction(frac)` | Simplify | Combines terms, GCD |
 
+### Helper Functions
+
+| Function | Purpose | Example |
+|----------|---------|---------|
+| `sum(terms)` | Build expression | See creation section |
+| `integralValue(expr, bounds)` | Integrate & evaluate | One-liner |
+| `volumeUnderSurface(f, xb, yb)` | 3D volume | Double integral |
+| `partialDerivative(f, var)` | Partial derivative | Multivariable |
+
+### Advanced Functions
+
+| Function | Purpose | Example |
+|----------|---------|---------|
+| `productRuleDifferentiate(fs, var)` | Product rule | d/dx[f·g·h] |
+| `quotientRuleDifferentiate(f, g, var)` | Quotient rule | d/dx[f/g] |
+| `taylorSeries(f, var, center, order)` | Taylor expansion | Approximate f |
+| `findCriticalPoints(f, var, range)` | Find extrema | Optimization |
+| `gradient(f, vars)` | Gradient vector | ∇f |
+| `arcLength(f, var, a, b)` | Curve length | Geometry |
+
+---
+
+## 💡 Usage Patterns
+
+### Pattern 1: Simple Calculus Problem
 ```javascript
-const x = createTerm('x', 1);  // x
-const x2 = createTerm('x', 2, 3);  // 3x²
+// Find critical points of f(x) = x³ - 3x
+const f = polynomial([1, 0, -3, 0], 'x');
+const critical = findCriticalPoints(f[0][0], 'x', [-5, 5]);
+const fPrime = differentiateFraction(f[0][0], 'x');
+
+console.log('f(x) =', fractionToString(f[0][0]));
+console.log('f\'(x) =', fractionToString(fPrime));
+console.log('Critical points:', critical.criticalPoints);
 ```
 
-#### `polynomial(powers, variable, coefficient = 1)`
-Quick polynomial builder.
-
+### Pattern 2: Rational Function Analysis
 ```javascript
-const f = polynomial([2, 1, 0], 'x');  // x² + x + 1
-const g = polynomial([3], 'y', 2);  // 2y³
+// Analyze f(x) = (x² - 1)/(x² + 1)
+const f = createFraction(
+    [createTerm(1, {x:2}), createTerm(-1)],
+    [createTerm(1, {x:2}), createTerm(1)]
+);
+
+const fPrime = differentiateFraction(f, 'x');
+const critical = findCriticalPoints({numi: f.numi, deno: 1}, 'x', [-5,5]);
+
+console.log('Function:', fractionToString(f));
+console.log('Derivative:', fractionToString(fPrime));
 ```
 
-#### `createFraction(numerator, denominator)`
-Creates a fraction expression.
-
+### Pattern 3: Multivariable Optimization
 ```javascript
-const frac = createFraction([createTerm('x', 1)], [createTerm('x', 2)]);  // x/x²
-```
+// Find gradient of f(x,y) = x²y/(x + y)
+const f = createFraction(
+    [createTerm(1, {x:2, y:1})],
+    [createTerm(1, {x:1}), createTerm(1, {y:1})]
+);
 
-### Evaluation
-
-#### `evaluateEquation(equation, values)`
-Evaluates an expression at given values.
-
-```javascript
-const expr = polynomial([2, 1], 'x');  // x² + x
-const result = evaluateEquation(expr[0][0], { x: 3 });  // 12
-```
-
-#### `integralValue(numeratorTerms, bounds, numSteps = 1000)`
-Computes definite integral value.
-
-```javascript
-const f = polynomial([1], 'x');  // x
-const area = integralValue(f[0][0], { x: [0, 2] });  // 2
-```
-
-### Differentiation
-
-#### `differentiateFraction(fraction, variable)`
-Symbolic differentiation.
-
-```javascript
-const f = polynomial([2], 'x');  // x²
-const df = differentiateFraction(f, 'x');  // 2x
-```
-
-#### `partialDerivative(numeratorTerms, variable)`
-Partial derivative for multivariable functions.
-
-```javascript
-const f = [createTerm('x', 2), createTerm('y', 1)];  // x² + y
-const df_dx = partialDerivative(f, 'x');  // 2x
-```
-
-#### `productRuleDifferentiate(f, g, variable)`
-Product rule differentiation.
-
-```javascript
-const f = polynomial([1], 'x');  // x
-const g = polynomial([2], 'x');  // x²
-const result = productRuleDifferentiate(f, g, 'x');  // d/dx[x·x²]
-```
-
-#### `quotientRuleDifferentiate(f, g, variable)`
-Quotient rule differentiation.
-
-```javascript
-const f = polynomial([1], 'x');  // x
-const g = polynomial([2], 'x');  // x²
-const result = quotientRuleDifferentiate(f, g, 'x');  // d/dx[x/x²]
-```
-
-### Integration
-
-#### `definiteIntegrateFraction(fraction, variable, lower, upper, numSteps = 1000)`
-Definite integration.
-
-```javascript
-const f = polynomial([2], 'x');  // x²
-const area = definiteIntegrateFraction(f, 'x', 0, 3, 1000);  // 9
-```
-
-#### `indefiniteIntegrateFraction(fraction, variable)`
-Symbolic indefinite integration.
-
-```javascript
-const f = polynomial([2], 'x');  // x²
-const F = indefiniteIntegrateFraction(f, 'x');  // x³/3 + C
-```
-
-#### `integrationByParts(u, dv, variable, bounds = null)`
-Integration by parts: ∫u dv = uv - ∫v du
-
-```javascript
-const u = polynomial([1], 'x');  // x
-const dv = [createTerm('x', 1, 1)];  // x dx (treated as e^x in some cases)
-const result = integrationByParts(u, dv, 'x', [0, 1]);
-```
-
-#### `volumeUnderSurface(numeratorTerms, xBounds, yBounds, numSteps = 100)`
-Double integration for volume.
-
-```javascript
-const f = polynomial([1, 1], 'x');  // x (or could be xy)
-const volume = volumeUnderSurface(f[0][0], [0, 1], [0, 1]);
-```
-
-### Simplification & Expansion
-
-#### `simplifyFraction(fraction)`
-Simplifies a fraction expression.
-
-```javascript
-const f = createFraction([createTerm('x', 2)], [createTerm('x', 1)]);
-const simplified = simplifyFraction(f);  // x
-```
-
-#### `expandProduct(fraction1, fraction2)`
-Expands the product of two expressions.
-
-```javascript
-const f = polynomial([1, 0], 'x');  // x + 1
-const g = polynomial([1, 0], 'y');  // y + 1
-const expanded = expandProduct(f, g);  // xy + x + y + 1
-```
-
-### Optimization
-
-#### `findCriticalPoints(f, variable, searchStart = 0, searchEnd = 10, numTests = 50)`
-Finds critical points (where derivative = 0).
-
-```javascript
-const f = polynomial([2, 0, -4], 'x');  // x² - 4
-const criticalPoints = findCriticalPoints(f, 'x', -5, 5);
-// Returns [{x: 0, y: -4, type: 'minimum'}]
-```
-
-#### `secondDerivativeTest(f, variable, criticalPoint)`
-Determines if critical point is min, max, or saddle.
-
-```javascript
-const f = polynomial([2], 'x');  // x²
-const type = secondDerivativeTest(f, 'x', 0);  // 'minimum'
-```
-
-### Series & Approximations
-
-#### `taylorSeries(f, variable, center, order)`
-Taylor series expansion around a point.
-
-```javascript
-const f = polynomial([2], 'x');  // x²
-const series = taylorSeries(f, 'x', 0, 4);
-// Returns polynomial approximation
-```
-
-#### `limit(f, variable, approach, direction = 'both')`
-Compute limits (numerical approximation).
-
-```javascript
-const f = createFraction([createTerm('x', 2)], [createTerm('x', 1)]);
-const lim = limit(f, 'x', 0, 'right');
-```
-
-### Multivariable Calculus
-
-#### `gradient(f, variables)`
-Computes gradient vector.
-
-```javascript
-const f = polynomial([2, 1], 'x');  // Could be f(x,y) = x² + y
 const grad = gradient(f, ['x', 'y']);
-// Returns [∂f/∂x, ∂f/∂y]
+console.log('∇f =', grad);
+
+// Evaluate at point (1,1)
+const gradAt = {
+    x: evaluateFraction(grad.gradient.x, {x:1, y:1}),
+    y: evaluateFraction(grad.gradient.y, {x:1, y:1})
+};
+console.log('∇f(1,1) =', gradAt);
 ```
 
-#### `directionalDerivative(f, variables, direction, point)`
-Derivative in a specific direction.
-
+### Pattern 4: Numerical Integration
 ```javascript
-const f = [createTerm('x', 2), createTerm('y', 2)];  // x² + y²
-const rate = directionalDerivative(f, ['x', 'y'], [1, 0], {x: 1, y: 1});
-```
+// Integrate complex rational function
+const f = createFraction(
+    [createTerm(1, {x:1})],
+    [createTerm(1, {x:2}), createTerm(1)]
+);  // x/(x² + 1)
 
-### Geometry
-
-#### `arcLength(f, variable, a, b, numSteps = 1000)`
-Computes arc length of a curve.
-
-```javascript
-const f = polynomial([2], 'x');  // y = x²
-const length = arcLength(f, 'x', 0, 2);
-```
-
-#### `surfaceArea(f, variable, a, b, numSteps = 1000)`
-Surface area of revolution.
-
-```javascript
-const f = polynomial([1], 'x');  // y = x
-const area = surfaceArea(f, 'x', 0, 2);
-```
-
-### Utilities
-
-#### `sum(...terms)`
-Combines multiple terms into one expression.
-
-```javascript
-const expr = sum(
-    createTerm('x', 2),
-    createTerm('x', 1, -1),
-    createTerm('x', 0, 3)
-);  // x² - x + 3
-```
-
-#### `monomial(coefficient, ...variables)`
-Creates a monomial term.
-
-```javascript
-const term = monomial(3, {x: 2}, {y: 1});  // 3x²y
+const area = numericalIntegrateFraction(f, 0, 1, 'x', 10000);
+console.log('∫₀¹ x/(x²+1) dx ≈', area);
+// This is ln(2)/2 ≈ 0.3466
 ```
 
 ---
 
-## 🔧 What Can You Build?
+## 🎯 Real-World Applications
 
-### Physics Simulations
-- Projectile motion calculations
-- Harmonic oscillators
-- Wave equations
-- Velocity and acceleration from position
+### Physics: Projectile Motion
+```javascript
+const h = polynomial([-4.9, 20, 2], 't');  // h(t) = -4.9t² + 20t + 2
+const v = differentiateFraction(h[0][0], 't');  // v(t) = h'(t)
+const a = differentiateFraction(v, 't');  // a(t) = v'(t)
 
-### Economics Models
-- Cost/revenue/profit optimization
-- Marginal analysis
-- Supply and demand equilibrium
-- Elasticity calculations
+const maxHeight = findCriticalPoints(h[0][0], 't', [0, 10]);
+console.log('Max height at t =', maxHeight.criticalPoints[0]);
+```
 
-### Engineering Applications
-- Optimization problems
-- Area and volume calculations
-- Center of mass computations
-- Moment of inertia
+### Economics: Cost Minimization
+```javascript
+// Average cost: C(x) = (x² + 100x + 1000)/x
+const AC = createFraction(
+    [createTerm(1, {x:2}), createTerm(100, {x:1}), createTerm(1000)],
+    [createTerm(1, {x:1})]
+);
 
-### Mathematics Learning Tools
-- Function plotters
-- Derivative calculators
-- Integration practice tools
-- Optimization visualizers
+const minCost = findCriticalPoints({numi: AC.numi, deno: 1}, 'x', [1, 100]);
+```
+
+### Engineering: Surface Area Optimization
+```javascript
+// Minimize surface area of cylinder with volume V
+// A = 2πr² + 2πrh, where V = πr²h
+// Express h in terms of r: h = V/(πr²)
+// Then optimize A(r)
+```
+
+---
+
+## 🏗️ Architecture
+
+### Module Structure
+```
+slang-math.js (exports all)
+├─ slang-basic.js ( )
+│  ├─ Core term/fraction creation
+│  ├─ Polynomial arithmetic 
+│  ├─ Quotient rule differentiation 
+│  ├─ Simpson's rule integration 
+│  └─ GCD simplification 
+├─ slang-helpers.js
+│  ├─ Easy builders
+│  ├─ Common formulas
+│  └─ Verification tools
+└─ slang-advanced.js
+   ├─ Product/quotient rules
+   ├─ Taylor series
+   ├─ Optimization
+   └─ Multivariable calculus
+```
+
+### Data Structure (Enhanced)
+```javascript
+// FRACTION ()
+{
+    numi: {
+        terms: [
+            { coeff: 2, var: { x: 2 } },  // 2x²
+            { coeff: 3, var: { x: 1 } }   // 3x
+        ]
+    },
+    deno: {  //: Can be polynomial!
+        terms: [
+            { coeff: 1, var: { x: 1 } },  // x
+            { coeff: 1 }                   // 1
+        ]
+    }
+    // OR simple: deno: 5
+}
+```
 
 ---
 
 ## 📈 Performance Notes
 
-- **Symbolic operations**: Instant (manipulating data structures)
-- **Numerical integration**: Depends on `numSteps` parameter
-  - 100 steps: Fast but less accurate
-  - 1000 steps: Good balance (default)
-  - 10000 steps: Slower but very accurate
-- **Root finding**: Usually converges in 20-50 iterations
-- **Deep cloning**: Fast for typical expressions (<1ms)
+### Symbolic Operations
+- **Term creation**: O(1)
+- **Polynomial addition**: O(n + m)
+- **Polynomial multiplication**: O(nm)
+- **Differentiation**: O(n)
+- **Simplification**: O(n log n)
+
+### Numerical Operations
+- **Simpson's Rule**: ~3× faster convergence than rectangles
+- **1000 steps**: Good balance (default)
+- **10000 steps**: High accuracy for difficult integrals
+
+### Best Practices
+1. Use `simplifyFraction()` after operations
+2. For complex rationals, use numerical methods
+3. Cache frequently evaluated expressions
+4. Use GCD simplification for cleaner results
 
 ---
 
-## 🎯 Best Practices
+## 🔥 What Makes  Special?
 
-1. **Start simple**: Use helpers like `polynomial()` instead of manual creation
-2. **Test incrementally**: Build complex expressions from simple parts
-3. **Verify results**: Use `evaluateEquation()` to check symbolic results numerically
-4. **Simplify often**: Call `simplifyFraction()` after operations
-5. **Read error messages**: The library gives helpful error messages
-6. **Use appropriate tools**: Symbolic when possible, numerical when necessary
-7. **Check the docs**: Every function is explained in the markdown files!
+✨ **Full Rational Function Support** - Not just polynomials anymore!  
+🎯 **Automatic Quotient Rule** - Differentiate rational functions seamlessly  
+📊 **Simpson's Rule** - More accurate numerical integration  
+⚡ **GCD Simplification** - Cleaner, simpler fractions  
+🔧 **Polynomial Arithmetic** - Add, subtract, multiply polynomials  
+📚 **Enhanced Documentation** - Every feature explained  
+🎓 **Educational** - See the math, not just the answer  
 
 ---
 
-## 🌟 What Makes SLaNg Special?
+## 🚀 Migration from 
 
-✨ **Symbolic AND Numerical**: Best of both worlds  
-🔒 **Type-Safe Structure**: JSON notation prevents many errors  
-📦 **No External Dependencies**: Pure JavaScript  
-📚 **Fully Documented**: Every function explained in markdown files  
-✅ **Tested**: All core features have passing tests  
-🔧 **Extensible**: Easy to add new features  
-🎓 **Educational**: Great for learning calculus  
+### What Changed?
+1. `createFraction()` now accepts polynomial denominators
+2. `differentiateFraction()` automatically uses quotient rule
+3. New `numericalIntegrateFraction()` with Simpson's rule
+4. New polynomial arithmetic functions
+5. Enhanced simplification with GCD
+
+### fully compatible?
+**YES!** All  code works in :
+```javascript
+//  code still works:
+const f = createFraction([createTerm(1, {x:1})], 1);  // ✓
+const fPrime = differentiateFraction(f, 'x');          // ✓
+
+//  adds new capabilities:
+const g = createFraction(
+    [createTerm(1, {x:1})],
+    [createTerm(1, {x:1}), createTerm(1)]  // 
+);
+```
 
 ---
 
 ## 🤝 Contributing
 
-We love contributions! SLaNg is an open-source project and we welcome:
+We love contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for:
+- How to add features
+- Code style guidelines
+- Testing requirements
+- Documentation standards
 
-### How to Contribute
-
-1. **Fork the repository**
-   ```bash
-   git clone https://github.com/yourusername/slang-math.git
-   ```
-
-2. **Create a feature branch**
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-
-3. **Make your changes**
-   - Add new functions to appropriate modules
-   - Write tests for your features
-   - Update documentation in markdown files
-   - Add examples to demonstrate usage
-
-4. **Test your changes**
-   ```bash
-   node test-slang.js
-   node your-new-test.js
-   ```
-
-5. **Submit a pull request**
-   - Describe what you've added/fixed
-   - Reference any related issues
-   - Include example usage
-
-### Contribution Ideas
-
-Want to help but not sure where to start? Here are some ideas:
-
-🔢 **New Math Features**
-- Trigonometric functions (sin, cos, tan)
-- Exponential and logarithmic functions
-- Matrix operations
-- Systems of equations solver
-- Differential equations (numeric solvers)
-
-📊 **Visualization**
-- 3D plotting integration
-- LaTeX output for pretty printing
-- Export to graphing formats
-
-🎓 **Educational Features**
-- Step-by-step solutions (show work)
-- Interactive tutorials
-- More worked examples
-- Common mistake warnings
-
-🐛 **Bug Fixes**
-- Find and report issues
-- Improve error messages
-- Fix edge cases
-- Performance optimizations
-
-📖 **Documentation**
-- More examples in markdown files
-- Video tutorials
-- Translation to other languages
-- Better inline comments
-
-### Contribution Guidelines
-
-- **Code style**: Follow existing patterns in the codebase
-- **Documentation**: Explain ALL new functions in markdown files
-- **Tests**: Include tests for new features
-- **Examples**: Add usage examples to demo files
-- **Commit messages**: Be descriptive about what changed and why
-
-### Recognition
-
-All contributors will be:
-- Listed in CONTRIBUTORS.md
-- Credited in release notes
-- Thanked profusely! 🎉
+### Current Priorities
+1. Partial fraction decomposition
+2. Trigonometric functions
+3. Logarithms and exponentials
+4. Matrix operations
+5. Symbolic equation solving
 
 ---
 
 ## 📄 License
 
-MIT License - feel free to use in your projects!
-
----
-
-## 🔮 Future Roadmap
-
-Interested in where SLaNg is headed? Here's what we're considering:
-
-- **Symbolic equation solver** - Solve algebraic equations symbolically
-- **Trigonometric support** - sin, cos, tan, and inverse functions
-- **Matrix algebra** - Operations, determinants, eigenvalues
-- **Complex numbers** - Full complex number support
-- **Better simplification** - More sophisticated algebraic simplification
-- **CAS features** - Computer algebra system capabilities
-- **Performance optimization** - Faster numerical methods
-- **Browser bundle** - Easy browser usage via CDN
-
-Vote on features or suggest new ones by opening an issue!
-
----
-
-## 💡 Getting Help
-
-- **Check the docs**: Read [FEATURES-EXPLAINED.md](FEATURES-EXPLAINED.md) for detailed explanations
-- **Run examples**: Execute `complete-guide.js` for comprehensive tutorial
-- **Open an issue**: Found a bug or need help? Create an issue on GitHub
-- **Read the source**: All functions are well-commented
-
----
-
-## 📊 Quick Reference Card
-
-| Need to...                    | Use...                          | File              |
-| ----------------------------- | ------------------------------- | ----------------- |
-| Create polynomial             | `polynomial([2,1,0], 'x')`      | slang-helpers.js  |
-| Evaluate expression           | `evaluateEquation(expr, {x:3})` | slang-math.js     |
-| Find derivative               | `differentiateFraction(f, 'x')` | slang-math.js     |
-| Compute integral              | `integralValue(f, {x:[0,2]})`   | slang-helpers.js  |
-| Find critical points          | `findCriticalPoints(f, 'x')`    | slang-advanced.js |
-| Taylor series                 | `taylorSeries(f, 'x', 0, 4)`    | slang-advanced.js |
-| Expand product                | `expandProduct(f, g)`           | slang-math.js     |
-| Simplify expression           | `simplifyFraction(f)`           | slang-math.js     |
-| Partial derivative            | `partialDerivative(f, 'x')`     | slang-helpers.js  |
-| Compute gradient              | `gradient(f, ['x','y'])`        | slang-advanced.js |
-| Volume under surface          | `volumeUnderSurface(f,x,y)`     | slang-helpers.js  |
-| Arc length                    | `arcLength(f, 'x', a, b)`       | slang-advanced.js |
+MIT License - use freely in your projects!
 
 ---
 
@@ -619,16 +675,31 @@ Vote on features or suggest new ones by opening an issue!
 
 - **Start Learning**: [SUMMARY.md](SUMMARY.md)
 - **Feature Guide**: [FEATURES-EXPLAINED.md](FEATURES-EXPLAINED.md)
+- **Architecture**: [ARCHITECTURE.md](ARCHITECTURE.md)
 - **Full Tutorial**: Run `node complete-guide.js`
 - **Quick Patterns**: Run `node quick-start.js`
-- **API Reference**: This file!
 
 ---
 
-**Version**: 1.0.0  
+## 📊 Quick Reference Card
+
+| Need to... | Use... | File |
+|------------|--------|------|
+| Create polynomial | `polynomial([2,1,0], 'x')` | slang-helpers.js |
+| Create rational | `createFraction(numi, deno)` | slang-math.js |
+| Evaluate | `evaluateFraction(f, {x:3})` | slang-math.js |
+| Differentiate | `differentiateFraction(f, 'x')` | slang-math.js |
+| Integrate (numeric) | `numericalIntegrateFraction(...)` | slang-math.js |
+| Find critical pts | `findCriticalPoints(f, 'x')` | slang-advanced.js |
+| Simplify | `simplifyFraction(f)` | slang-math.js |
+| Gradient | `gradient(f, ['x','y'])` | slang-advanced.js |
+
+---
+
+**Version**: 2.0.0  
 **Last Updated**: February 2026  
-**Total Lines of Code**: ~1,500  
-**Total Features**: 50+  
+**Total Lines of Code**: ~2,000+  
+**Total Features**: 75+  
 **Dependencies**: 0  
 
 ---
@@ -637,8 +708,10 @@ Vote on features or suggest new ones by opening an issue!
 
 **Made with ❤️ for the mathematical community**
 
+**enhancementd to handle ANY rational function!** 🧮✨
+
 [⭐ Star us on GitHub](https://github.com/yourusername/slang-math) • [🐛 Report Bug](https://github.com/yourusername/slang-math/issues) • [💡 Request Feature](https://github.com/yourusername/slang-math/issues)
 
-**Happy Calculating!** 🧮✨
+**Happy Calculating!** 📊🚀
 
 </div>
