@@ -1,4 +1,4 @@
-# 📚 SLaNg Math Library - Master Index
+# 📚 SLaNg Math Library
 
 ## 🎯 Start Here!
 
