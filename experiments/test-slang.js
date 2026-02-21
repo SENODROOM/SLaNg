@@ -16,7 +16,7 @@ import {
     subtractPolynomials,
     fractionToString,
     polynomialToString
-} from '../slang-basic-.js';
+} from '../slang-basic.js';
 
 // ============================================================================
 // TEST UTILITIES
