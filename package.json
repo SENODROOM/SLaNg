@@ -1,0 +1,23 @@
+{
+  "name": "slangmath",
+  "version": "1.0.0",
+  "description": "🎯 **Advanced Symbolic Mathematics with Comprehensive LaTeX Conversion & Extended Function Support**",
+  "main": "slang-advanced.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SENODROOM/SLaNg.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SENODROOM/SLaNg/issues"
+  },
+  "homepage": "https://github.com/SENODROOM/SLaNg#readme"
+}
