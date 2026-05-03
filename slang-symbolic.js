@@ -1369,7 +1369,7 @@ export function zTransform(seqName, params = {}, freqVar = 'z') {
 
 /**
  * Parse a simple math expression string into a SymExpr tree.
- * Supports: numbers, variables (single letters), +−*/^, parentheses,
+ * Supports: numbers, variables (single letters), + - * / ^, parentheses,
  * and function names: sin, cos, tan, asin, acos, atan, sinh, cosh, tanh,
  * exp, ln, log, sqrt, abs.
  *

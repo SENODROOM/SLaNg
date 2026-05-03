@@ -860,7 +860,7 @@ export function mannWhitneyU(x, y) {
 function _normalCDF(z) {
     return 0.5 * (1 + _erf(z / Math.SQRT2));
 }
-function _erf(x) {
+function _erf2(x) {
     const t = 1 / (1 + 0.3275911 * Math.abs(x));
     const poly = t * (0.254829592 + t * (-0.284496736 + t * (1.421413741 + t * (-1.453152027 + t * 1.061405429))));
     return Math.sign(x) * (1 - poly * Math.exp(-x * x));
