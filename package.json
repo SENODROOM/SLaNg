@@ -1,6 +1,6 @@
 {
   "name": "slangmath",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Saad's Language for Analytical Numerics and Geometry — advanced symbolic mathematics, calculus, ODE/PDE solvers, linear algebra, statistics, and complex analysis. Zero dependencies. Pure JavaScript.",
   "type": "module",
   "main": "./slang-math.js",
