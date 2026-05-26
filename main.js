@@ -1,11 +1,16 @@
 import { spawnSync } from 'child_process';
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 import { 
     parseExpr,      
     symDiff,        
     symIntegrate,  
     symSimplify,   
     symToLatex      
-} from './slang-math.js'; 
+} from './src/symbolic.js'; 
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const predictScript = join(__dirname, 'script', 'predict.py');
 
 export function runSlangPipeline(userSlangInput) {
     try {
@@ -15,7 +20,7 @@ export function runSlangPipeline(userSlangInput) {
        
         let intent = ""; 
         try {
-            const pythonProcess = spawnSync('python', ['predict.py', userSlangInput], { encoding: 'utf-8' });
+            const pythonProcess = spawnSync('python', [predictScript, userSlangInput], { encoding: 'utf-8' });
             if (!pythonProcess.error && pythonProcess.stdout) {
                 intent = pythonProcess.stdout.trim().toLowerCase();
             }
