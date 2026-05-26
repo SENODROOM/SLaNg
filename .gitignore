@@ -201,3 +201,8 @@ Thumbs.db
 # Debug files
 debug-*.js
 *.log
+
+# make-folder-txt
+.txtconfig
+.txtignore
+slang.txt
