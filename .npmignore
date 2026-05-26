@@ -10,3 +10,6 @@ publish.sh
 /.gitmodules
 .gitmodules
 SUMMARY.md
+doc/
+/docs
+/docs/*
