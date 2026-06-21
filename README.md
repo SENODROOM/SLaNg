@@ -83,7 +83,7 @@ const parsed = latexToSlang('\\frac{x^{2} + 1}{x - 1}');
 ### Installation
 ```bash
 # Clone or download the repository
-git clone https://github.com/yourusername/slang-math.git
+git clone https://github.com/SENODROOM/SLaNg.git
 cd slang-math
 
 # No npm install needed - pure JavaScript!
@@ -525,12 +525,12 @@ We welcome contributions from the community! Whether you're fixing bugs, adding 
 ### 🎯 How to Contribute
 
 #### 🐛 Report Bugs
-- Found an issue? [Open a bug report](https://github.com/yourusername/slang-math/issues)
+- Found an issue? [Open a bug report](https://github.com/SENODROOM/SLaNg/issues)
 - Include: description, steps to reproduce, expected vs actual behavior
 - Add code examples and error messages
 
 #### 💡 Request Features
-- Have an idea? [Open a feature request](https://github.com/yourusername/slang-math/issues)
+- Have an idea? [Open a feature request](https://github.com/SENODROOM/SLaNg/issues)
 - Describe the use case and why it would be valuable
 - Consider if it fits the library's scope and goals
 
@@ -551,7 +551,7 @@ We welcome contributions from the community! Whether you're fixing bugs, adding 
 ### 🛠️ Development Setup
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/slang-math.git
+git clone https://github.com/SENODROOM/SLaNg.git
 cd slang-math
 
 # Install development dependencies
@@ -603,7 +603,7 @@ We're looking for help with:
 ### 💬 Get Involved
 
 #### 🗣️ Discussion
-- Join our [GitHub Discussions](https://github.com/yourusername/slang-math/discussions)
+- Join our [GitHub Discussions](https://github.com/SENODROOM/SLaNg/discussions)
 - Ask questions, share ideas, get help
 - Participate in planning and design discussions
 
@@ -644,9 +644,9 @@ Special thanks to everyone who has contributed to making SLaNg a powerful mathem
 - **🧮 Extended Demo**: `node slang-extended.js`
 
 ### Community
-- **💬 Discussions**: [GitHub Discussions](https://github.com/yourusername/slang-math/discussions)
-- **🐛 Report Issues**: [GitHub Issues](https://github.com/yourusername/slang-math/issues)
-- **💡 Request Features**: [Feature Requests](https://github.com/yourusername/slang-math/issues)
+- **💬 Discussions**: [GitHub Discussions](https://github.com/SENODROOM/SLaNg/discussions)
+- **🐛 Report Issues**: [GitHub Issues](https://github.com/SENODROOM/SLaNg/issues)
+- **💡 Request Features**: [Feature Requests](https://github.com/SENODROOM/SLaNg/issues)
 - **🔧 Pull Requests**: [Contributing Guide](CONTRIBUTING.md)
 
 ### Development
@@ -695,7 +695,7 @@ Special thanks to everyone who has contributed to making SLaNg a powerful mathem
 
 **Advanced multivariable calculus capabilities!** 🧮✨
 
-[⭐ Star us on GitHub](https://github.com/yourusername/slang-math) • [🐛 Report Bug](https://github.com/yourusername/slang-math/issues) • [💡 Request Feature](https://github.com/yourusername/slang-math/issues)
+[⭐ Star us on GitHub](https://github.com/SENODROOM/SLaNg) • [🐛 Report Bug](https://github.com/SENODROOM/SLaNg/issues) • [💡 Request Feature](https://github.com/SENODROOM/SLaNg/issues)
 
 **Happy Calculating!** 📊🚀
 
