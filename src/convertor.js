@@ -646,7 +646,7 @@ function demoConverter() {
 }
 
 // Run demo if this file is executed directly
-if (import.meta.url === `file://${process.argv[1].replace(/\\/g, '/').replace(/ /g, '%20')}` || process.argv[1].endsWith('slang-convertor.js')) {
-    demoConverter();
-}
-
+//if (import.meta.url === `file://${process.argv[1].replace(/\\/g, '/').replace(/ /g, '%20')}` || process.argv[1].endsWith('slang-convertor.js')) {
+  //  demoConverter();
+//}
+// CLI demo removed — not compatible with browser builds
